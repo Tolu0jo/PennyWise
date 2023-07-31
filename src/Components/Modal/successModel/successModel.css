@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.success-modal {
+  background-color: white;
+  padding: 40px;
+  border-radius: 24px;
+  text-align: center;
+}
+.checker-logo{
+    margin: 10px 70px;
+}
+.success-modal-title{
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.texts{
+   font-size: small;
+    margin: 0 20px;
+    font-weight: 200;
+}
+.success-modal-button {
+  display: block;
+  width: 100%;
+  background-color: #2d6a4f;
+  min-height: 2.5rem;
+  color: #ffffff;
+  border-radius: 7px;
+  min-width: 100px;
+  margin-top: 30px ;
+  font-size: small;
+  border: none;
+}
+
+
+

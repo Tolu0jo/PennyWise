@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.email-confirmation-modal{
+  background-color: white;
+  border-radius: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  
+}
+.email-confirmation-title{
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #101828
+}
+.main-text{
+    font-size: small;
+    margin: 10px 20px;
+    font-weight: 300;
+    display: flex;
+    width: 320px;
+    flex-direction: column;
+    color: #101828
+}
+.email-footer{
+    font-size: small;
+    margin: 20px auto;
+    font-weight: 300;
+    color: #101828;
+    margin-right: 10px;
+}
+a{
+    color: #1570EF;
+    font-weight: 400;
+}

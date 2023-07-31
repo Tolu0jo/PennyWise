@@ -1,0 +1,19 @@
+.sett {
+  width: 100%;
+}
+.main {
+  border-bottom: 1px solid #ccc;
+  height: 80px;
+}
+.settingDiv {
+  width: 10%;
+  display: flex;
+  justify-content: flex-end;
+  border: 0px !important;
+}
+
+.settingDiv button {
+  background-color: unset;
+  border: 0px !important;
+  width: 100% !important;
+}
