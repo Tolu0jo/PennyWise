@@ -16,7 +16,6 @@
     "@types/styled-components": "^5.1.26",
     "axios": "^1.4.0",
     "bootstrap-icons": "^1.10.5",
-    "chart.js": "^4.3.0",
     "date-fns": "^2.30.0",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
