@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const StyledSidebar = styled.html`
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
@@ -101,4 +102,9 @@ export const CompanyIdI = styled.div`
   width: 12rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #eaebec;
+`;
+
+export const StyledRouterLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;

@@ -57,19 +57,16 @@ export const NoActivityWrapper = styled.div`
   margin-top: 1rem;
 `;
 
-export const  TitleHead = styled.div`
- display: flex;
- justify-content: space-between;
- align-items: center;
- margin-right: 5rem;
- margin-top: 2rem;
- margin-left: 2rem;
- margin-bottom: 1rem;
-`
-export const  TitleHead1 = styled.h1`
- color:green;
-`
-export const AddAccount = styled.div`
-width:40rem;
-height:40rem;
-`
+export const ModalOverlay = styled.div`
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+z-index: 100; /* Ensure the overlay appears above other elements */
+display: flex;
+align-items: center;
+justify-content: center;
+overflow-y: scroll;
+`;

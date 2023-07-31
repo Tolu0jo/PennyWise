@@ -1,8 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
-import Button from "../Button/button";
-import AccountCard from "./AccountCard";
 import {
   IncomeContainer,
   IncomeHead,
@@ -35,6 +33,8 @@ import AddCashIncome from "./IncomeModals/AddCashIncome";
 import { useAuth } from "../../context/authContext";
 import DateTime from "../DateTime/DateTime";
 import EditCashIncome from "./IncomeModals/EditCashIncome";
+import AccountCard from "./AccountCard";
+import Button from "../Button/button";
 
 
 const IncomeComp: FC = () => {
@@ -143,6 +143,7 @@ const handleEditCloseModal=()=>{
           <AccountDiv>
             { accountDetails.map((account:any)=><AccountCard
               bankName={account.bank_name}
+              // eslint-disable-next-line no-unsafe-optional-chaining
               amount={ account?.account_balance && "₦ " + (account?.account_balance).toLocaleString('en-US')}
             />)}
 

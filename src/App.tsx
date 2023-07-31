@@ -10,7 +10,6 @@ import ForgetPasswordPage from "./Pages/ForgetPasswordPage/ForgetPasswordPage";
 import LandinPage from "./Pages/LandingPage/LandingPage";
 import DataProvider from "./context/authContext";
 import Register from "./Pages/RegisterPage/Register";
-import LinkedAccountCard from "./Components/LinkedAccountCard/LinkedAccountCard";
 import {ToastContainer} from 'react-toastify'
 import SavingsPage from "./Pages/SavingsPage/SavingsPage";
 import BudgetPage from "./Pages/BudgetPage/BudgetPage";
@@ -22,11 +21,12 @@ import Profile from "./Pages/ProfilePage/Profile";
 import History from "./Pages/HistoryPage/History";
 import IncomePage from "./Pages/IncomePage/IncomePage";
 import ExpensePage from "./Pages/ExpensePage/ExpensePage";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 
 
 //add the path and components to the element, you may remove the fragment
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <div>
       <DataProvider>
@@ -47,7 +47,6 @@ const App = () => {
             <Route path="/check-mail" element={<CheckMailModal />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/linkAccount" element={<LinkedAccountCard />} />
             <Route path="/savings" element={<SavingsPage />} />
             <Route path="/" element={<LandinPage />} />
             <Route path="/budget" element={<BudgetPage />} />
@@ -58,6 +57,8 @@ const App = () => {
             <Route path="/income" element={<IncomePage/>} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/expenses" element={<ExpensePage />} />
+            <Route path="/income" element={<IncomePage/>} />
+            <Route path="/dashboard" element={<Dashboard />}  />
           </Routes>
         </Router>
 

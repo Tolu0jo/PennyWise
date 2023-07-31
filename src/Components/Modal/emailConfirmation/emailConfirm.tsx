@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "../modalComp";
+import Modal from "../../LinkedAccountCard/modalComp";
 import './emailConfirm.css'
 
 interface EmailConfirmationProps {

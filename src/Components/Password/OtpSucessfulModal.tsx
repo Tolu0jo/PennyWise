@@ -14,7 +14,7 @@ function OtpSucessfulModal() {
       <Container>
         <SetupContent style={{ width: "30%", padding: "20px" }}>
           <LogoContent>
-          <img src="http://localhost:5173/vite.svg" width={50} />
+            <img src={logo} alt="Logo" />{" "}
           </LogoContent>
           <h1>Successful</h1>
           <p style={{ textAlign: "center" }}>
@@ -22,14 +22,13 @@ function OtpSucessfulModal() {
             account.
           </p>
           <p style={{ textAlign: "center" }}></p>
-          <ButtonForm>
-            <Link style={{ color: "#FFFFFF", textDecoration: "none" }} to="/">
-              Done
-            </Link>
-          </ButtonForm>
+          <Link to="/dashboard" style={{ color: "#FFFFFF", textDecoration: "none" }}>
+            <ButtonForm>Done</ButtonForm>
+          </Link>
         </SetupContent>
       </Container>
     </>
   );
 }
+
 export default OtpSucessfulModal;

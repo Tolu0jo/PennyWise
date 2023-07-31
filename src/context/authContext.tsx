@@ -3,18 +3,30 @@ import { apiGet, apiPost, apiDelete, apiPut } from "./axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { tr } from "date-fns/locale";
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import jwtDecode from "jwt-decode"
+interface DecodedToken {
+  id: string;
+}
 
 
 export const dataContext = createContext<undefined | any>(undefined);
-const DataProvider = ({ children }: any) => {
-  //======Login=====/
 
+const DataProvider = ({ children }: any ) => {
+  // const [isAuthenticated, setIsAuthenticated] = useLocalStorage<boolean>('token', false);
+
+
+  //======Login=====/
   const login = async (loginData: any) => {
     try {
       await apiPost("/user/login", loginData).then((res) => {
         console.log(res);
         sessionStorage.setItem("token", res.data.token);
         setTimeout(() => (window.location.href = "/dashboard"), 1000);
+        // localStorage.setItem("token", res.data?.token);
+        // // setIsAuthenticated(true);
+        // window.location.href = "/dashboard";
       });
     } catch (error) {
       console.log(error);
@@ -232,6 +244,55 @@ const DataProvider = ({ children }: any) => {
   
     });
   };
+
+  const addAccount = async (formData: FormData) => {
+      await apiPost("/account/addAccount", formData).then((res) => {
+        const response = res.data;
+        localStorage.setItem("token", res.data?.token);
+      console.log(response);
+
+      window.location.href = "/verify-otp";
+    }); 
+  };
+
+  const verifyAccount = async (formData: FormData) => {
+    await apiPost("/account/verifyOtp", formData).then((res) => {
+      const response = res.data;
+    console.log(response);
+
+    window.location.href = "/otp_successfu_modal";
+  }); 
+};
+
+
+const fetchAccount = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        console.log("Token not found.");
+        return;
+      }
+      
+
+      const decodedToken = jwtDecode(token) as DecodedToken;
+      console.log("Decoded Token:", decodedToken);
+      console.log("userId:", decodedToken.id); //
+
+    const response = await apiGet(`/account/${decodedToken.id}`);
+    const accountData = response.data.accountDetails;
+
+    console.log(accountData); 
+
+    return accountData;
+  } catch (error) {
+    console.error("Error fetching account details:", error);
+    throw new Error("Failed to fetch account details. Please try again later.");
+  }
+};
+
+
+
+  
  const [categories,setCategories]=useState([])
   const getCategories = async()=>{
     await apiGet("/expense/categories").then((res)=>{
@@ -278,6 +339,9 @@ const DataProvider = ({ children }: any) => {
         personalDetails,
         cashIncome,
         expenditure,
+        fetchAccount, 
+        verifyAccount, 
+        addAccount
       }}
     >
       {children}

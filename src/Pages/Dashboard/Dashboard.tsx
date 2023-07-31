@@ -5,10 +5,10 @@ import LinkedAccountCard from '../../Components/LinkedAccountCard/LinkedAccountC
 const Dashboard = () => {
   return (
   <PageContainer>
-     <Sidebar/>
+     <Sidebar />
      <PageWrapper>
-     <Navbar/>
-     <LinkedAccountCard/>
+     <Navbar />
+     <LinkedAccountCard />
      </PageWrapper>
   </PageContainer>
   )

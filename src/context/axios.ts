@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 
 const baseUrl = "http://localhost:4040";
@@ -32,6 +33,8 @@ export const apiPost = (path: string, data: any) => {
   };
   return axios.post(`${baseUrl}${path}`, data, config);
 };
+
+
 export const apiPatch = (path: string, data: any) => {
   const config = {
     headers: {

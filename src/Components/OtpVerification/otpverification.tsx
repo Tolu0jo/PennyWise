@@ -1,5 +1,8 @@
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useRef } from "react";
-import axios from "axios";
+import { useAuth } from "../../context/authContext";
+
 import {
   Container,
   SetupContent,
@@ -16,96 +19,38 @@ function OTPVerification() {
   const fourthRef = useRef<HTMLInputElement>(null);
   const fifthRef = useRef<HTMLInputElement>(null);
   const sixRef = useRef<HTMLInputElement>(null);
-  const [otp, setOtp] = useState<string[]>([]);
+  const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
+  const { verifyAccount } = useAuth();
 
   const Input = ({
     innerRef,
-    name,
+    index,
   }: {
     innerRef: React.RefObject<HTMLInputElement>;
-    name: string;
+    index: number;
   }) => {
+    const inputRefs = [firstRef, secondRef, thirdRef, fourthRef, fifthRef, sixRef];
+
     const handleFocus = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      switch (name) {
-        case "first":
-          if (event.key === "Backspace") {
-            return;
-          }
-          if (event.key === "ArrowRight") {
-            secondRef.current?.focus();
-          }
-          break;
-        case "second":
-          if (event.key === "Backspace") {
-            firstRef.current?.focus();
-          } else if (event.key === "ArrowRight") {
-            thirdRef.current?.focus();
-          }
-          break;
-        case "third":
-          if (event.key === "Backspace") {
-            secondRef.current?.focus();
-          } else if (event.key === "ArrowRight") {
-            fourthRef.current?.focus();
-          }
-          break;
-        case "fourth":
-          if (event.key === "Backspace") {
-            thirdRef.current?.focus();
-          } else if (event.key === "ArrowRight") {
-            fifthRef.current?.focus();
-          }
-          break;
-        case "fifth":
-          if (event.key === "Backspace") {
-            fourthRef.current?.focus();
-          } else if (event.key === "ArrowRight") {
-            sixRef.current?.focus();
-          }
-          break;
-        case "six":
-          if (event.key === "Backspace") {
-            fifthRef.current?.focus();
-          }
-          break;
-        default:
-          break;
+      const { key } = event;
+      if (key === "ArrowLeft" && index > 0) {
+        // Move focus to the left input box
+        const prevRef = inputRefs[index - 1];
+        prevRef.current?.focus();
+      } else if (key === "ArrowRight" && index < 5) {
+        // Move focus to the right input box
+        const nextRef = inputRefs[index + 1];
+        nextRef.current?.focus();
       }
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const inputValue = event.target.value;
-      if (inputValue !== "") {
-        let index = 0;
-        switch (name) {
-          case "first":
-            index = 0;
-            break;
-          case "second":
-            index = 1;
-            break;
-          case "third":
-            index = 2;
-            break;
-          case "fourth":
-            index = 3;
-            break;
-          case "fifth":
-            index = 4;
-            break;
-          case "six":
-            index = 5;
-            break;
-          default:
-            break;
-        }
-        setOtp((prevOtp) => {
-          const updatedOtp = [...prevOtp];
-          updatedOtp[index] = inputValue;
-          console.log(updatedOtp);
-          return updatedOtp;
-        });
-      }
+      setOtp((prevOtp) => {
+        const updatedOtp = [...prevOtp];
+        updatedOtp[index] = inputValue;
+        return updatedOtp;
+      });
     };
 
     return (
@@ -116,13 +61,37 @@ function OTPVerification() {
         className="otpContent"
         type="text"
         maxLength={1}
+        style={{
+          width: "40px",
+          height: "40px",
+          fontSize: "20px",
+          textAlign: "center",
+          margin: "5px",
+        }}
+        value={otp[index]}
       />
     );
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const otpCode = otp.join("");
+    const otpCode = parseInt(otp.join(""), 10);
+
+    console.log("Form submitted!"); 
+    console.log("OTP Code:", otpCode); 
+
+    if (!otpCode) {
+      toast.error("Please enter the OTP before submitting.");
+      return;
+    }
+    try {
+      console.log("Calling verifyAccount...");
+      await verifyAccount({ otp: otpCode });
+      toast.success("OTP verified successfully!");  
+    } catch (error) {
+      console.error("Error in verifyAccount:", error);
+      toast.error("Failed to verify OTP. Please try again.");
+    }
   };
 
   return (
@@ -135,23 +104,24 @@ function OTPVerification() {
           </LogoContent>
           <h2>Enter Your OTP Code</h2>
           <p style={{ textAlign: "center" }}>
-            We’ve sent an OTP code to your email/phone number. Enter the OTP
+            We've sent an OTP code to your email/phone number. Enter the OTP
             code below.
           </p>
-          <form onSubmit={handleSubmit}>
-            <Label>
-              <OTP>
-                <Input innerRef={firstRef} name="first" />
-                <Input innerRef={secondRef} name="second" />
-                <Input innerRef={thirdRef} name="third" />
-                <Input innerRef={fourthRef} name="fourth" />
-                <Input innerRef={fifthRef} name="fifth" />
-                <Input innerRef={sixRef} name="six" />
-              </OTP>
-              <ButtonForm type="submit">Send</ButtonForm>
-            </Label>
-          </form>
+          <div>
+            <OTP>
+              <Input innerRef={firstRef} index={0} />
+              <Input innerRef={secondRef} index={1} />
+              <Input innerRef={thirdRef} index={2} />
+              <Input innerRef={fourthRef} index={3} />
+              <Input innerRef={fifthRef} index={4} />
+              <Input innerRef={sixRef} index={5} />
+            </OTP>
+            <ButtonForm type="button" onClick={handleSubmit}>
+              Send
+            </ButtonForm>
+          </div>
         </SetupContent>
+        <ToastContainer />
       </Container>
     </>
   );

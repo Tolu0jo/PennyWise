@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "../modalComp";
+import Modal from "../../LinkedAccountCard/modalComp";
 import checker from "../../../assets/Success.png";
 import "./successModel.css";
 import { useNavigate } from "react-router";
