@@ -1,0 +1,9 @@
+.bg-card {
+  border-radius: 8px;
+  opacity: 0.6000000238418579;
+  flex-shrink: 0;
+  background: var(--green-3, #52b788) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
